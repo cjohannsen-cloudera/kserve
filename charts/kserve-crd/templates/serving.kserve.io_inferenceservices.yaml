@@ -2804,15 +2804,6 @@ spec:
                         type: string
                       url:
                         type: string
-                      storage:
-                        properties:
-                          path: string
-                          parameters:
-                            items:
-                              type: string
-                            type: array
-                          key: string
-                        type: object
                     type: object
                   maxReplicas:
                     format: int32
@@ -7327,15 +7318,6 @@ spec:
                         type: string
                       url:
                         type: string
-                      storage:
-                        properties:
-                          path: string
-                          parameters:
-                            items:
-                              type: string
-                            type: array
-                          key: string
-                        type: object
                     type: object
                   maxReplicas:
                     format: int32
@@ -20275,15 +20257,6 @@ spec:
                         type: string
                       url:
                         type: string
-                      storage:
-                        properties:
-                          path: string
-                          parameters:
-                            items:
-                              type: string
-                            type: array
-                          key: string
-                        type: object
                     type: object
                   maxReplicas:
                     format: int32
