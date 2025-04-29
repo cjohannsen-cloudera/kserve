@@ -315,18 +315,6 @@ func startLogger(workers int, logStorePath *string, logStoreFormat *string, log 
 		}
 	}
 
-	var store kfslogger.Store
-	if kfslogger.GetStorageStrategy(*logUrl) != kfslogger.HttpStorage {
-		if logStoreFormat != nil && *logStoreFormat != "" {
-			log.Infow("Logger storage is enabled", "path", logStorePath, "logStoreFormat", logStoreFormat)
-			store, err = kfslogger.NewStoreForScheme(logUrlParsed.Scheme, *logStorePath, *logStoreFormat, log)
-			if err != nil {
-				log.Errorw("Error creating logger store", zap.Error(err))
-				os.Exit(-1)
-			}
-		}
-	}
-
 	log.Info("Starting the log dispatcher")
 	kfslogger.StartDispatcher(workers, store, log)
 	return &loggerArgs{
