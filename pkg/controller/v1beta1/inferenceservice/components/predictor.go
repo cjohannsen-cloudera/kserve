@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"sigs.k8s.io/yaml"
 	"strconv"
 	"strings"
 
@@ -712,7 +713,9 @@ func (p *Predictor) reconcileRawDeployment(ctx context.Context, isvc *v1beta1.In
 }
 
 func (p *Predictor) reconcileKnativeDeployment(ctx context.Context, isvc *v1beta1.InferenceService, objectMeta *metav1.ObjectMeta, podSpec *corev1.PodSpec) (*knservingv1.ServiceStatus, error) {
-	p.Log.Info("Reconciling Knative deployment", "isvc", isvc, "objectMeta", objectMeta, "podSpec", podSpec)
+	metaBytes, _ := yaml.Marshal(objectMeta)
+	podSpecBytes, _ := yaml.Marshal(podSpec)
+	p.Log.Info("Reconciling Knative deployment", "isvc", isvc, "objectMeta", string(metaBytes), "podSpec", string(podSpecBytes))
 
 	r := knative.NewKsvcReconciler(p.client, p.scheme, *objectMeta, &isvc.Spec.Predictor.ComponentExtensionSpec,
 		podSpec, isvc.Status.Components[v1beta1.PredictorComponent], p.inferenceServiceConfig.ServiceLabelDisallowedList)
